@@ -1,0 +1,16 @@
+{
+  "name": "fire-map",
+  "version": "1.0.0",
+  "description": "A map of air quality in Atlanta",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/ajcnewsapp/wildfire-map.git"
+  },
+  "author": "Jonathan Cox/AJC",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/ajcnewsapp/wildfire-map#readme"
+}

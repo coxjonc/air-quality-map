@@ -1,6 +1,7 @@
 // Dom refs
 $grid = $('#overlay-grid');
 
+// Get the readings from a JSON file
 function getReadings() {
   $.ajax({
     url: './aq_readings.json',
@@ -21,8 +22,9 @@ function addGrids(readings) {
     var readingDiv = [];
 
     // Yes I know it would be better to use flexbox
-    for (var i=0; i<3; i++) {
-      var row = readings[i]['grid'].map(function(cell) {
+    var grid = readings[i]['grid']
+    for (var j=0; j<3; j++) {
+      var row = grid[j].map(function(cell) {
         return (`
           <div class="grid-cell" data-intensity=${cell}></div>
         `)

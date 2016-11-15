@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="atl_stations" id="atl_stations">
+	<SimpleField name="Site Name" type="string"></SimpleField>
+	<SimpleField name="Latitude" type="string"></SimpleField>
+	<SimpleField name="Longitude" type="string"></SimpleField>
+</Schema>
+<Folder><name>atl_stations</name>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#atl_stations">
+		<SimpleData name="Site Name">South DeKalb</SimpleData>
+		<SimpleData name="Latitude">33.6906</SimpleData>
+		<SimpleData name="Longitude">-84.2731</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-84.2731,33.6906</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#atl_stations">
+		<SimpleData name="Site Name">Confederate Ave</SimpleData>
+		<SimpleData name="Latitude">33.7206</SimpleData>
+		<SimpleData name="Longitude">-84.3578</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-84.3578,33.7206</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#atl_stations">
+		<SimpleData name="Site Name">Gwinnett Tech</SimpleData>
+		<SimpleData name="Latitude">33.9636</SimpleData>
+		<SimpleData name="Longitude">-84.0664</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-84.0664,33.9636</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#atl_stations">
+		<SimpleData name="Site Name">Yorkville</SimpleData>
+		<SimpleData name="Latitude">33.9283</SimpleData>
+		<SimpleData name="Longitude">-85.0453</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-85.0453,33.9283</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#atl_stations">
+		<SimpleData name="Site Name">Newnan</SimpleData>
+		<SimpleData name="Latitude">33.4039</SimpleData>
+		<SimpleData name="Longitude">-84.7461</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-84.7461,33.4039</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#atl_stations">
+		<SimpleData name="Site Name">McDonough</SimpleData>
+		<SimpleData name="Latitude">33.4347</SimpleData>
+		<SimpleData name="Longitude">-84.1617</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-84.1617,33.4347</coordinates></Point>
+  </Placemark>
+</Folder>
+</Document></kml>

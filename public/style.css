@@ -1,0 +1,22 @@
+#map {
+  position: relative;
+}
+
+#background {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  left: 0;
+  top: 0;
+}
+
+#background > img {
+  width: 100%;
+}
+
+#overlay-grid {
+  width: 600px;
+  height: 600px;
+  opacity: .5;
+  background-color: red;
+}

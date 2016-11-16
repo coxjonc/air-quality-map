@@ -1,13 +1,15 @@
 #! /usr/bin/python
 
 # Standard library imports
-import os
+from os.path import dirname, abspath, join
 import json
+import time
 import pdb
 import csv
 from math import radians, cos, sin, asin, sqrt
 
-DIR = os.path.dirname(os.path.abspath(__file__))
+DIR = dirname(abspath(__file__))
+OUTFILE = join(dirname(DIR), 'public', 'aq_readings.json')
 
 station_coords = {
     'South DeKalb': [33.6906, -84.2731],
@@ -22,11 +24,9 @@ grid_centers = [
     [34.0708, -84.6071],
     [34.0708, -84.3379],
     [34.0708, -84.0797],
-
     [33.8514, -84.6071],
     [33.8514, -84.3379],
     [33.8514, -84.0797],
-
     [33.60203, -84.6071],
     [33.60203, -84.3379],
     [33.60203, -84.0797]
@@ -52,7 +52,7 @@ def haversine(lat1, lng1, lat2, lng2):
 # End helper functions
 #----------------------
 
-def get_readings(fpath=os.path.join(DIR, 'atlanta_hourly_14.csv')):
+def get_readings(outfile=OUTFILE, fpath=join(DIR, 'atlanta_hourly_14.csv')):
     """
     Create a json file with intensity of air pollution for each grid in
     the city of Atlanta
@@ -79,13 +79,13 @@ def get_readings(fpath=os.path.join(DIR, 'atlanta_hourly_14.csv')):
                 }
                 station_dists.append([name, haversine(**args)])
 
-            # Once all the station dists have been calculated,
-            # sort in place
+            # Once all the station dists have been calculated, sort in place
             station_dists.sort(key=lambda x: x[1])
             
             # Find the three closest stations and use inverse distance weighting to 
-            # calculate an average reading for PM2.5 (pollution). IDW is a basic
-            # algorithm for spatial interpolation https://www.e-education.psu.edu/geog486/node/1877
+            # calculate an average reading for PM2.5 (pollution). We need to use
+            # spatial interpolation because there isn't a monitoring station in 
+            # every quadrant.
             numerator = [float(hour[name]) / dist**2 for name, dist in station_dists[-3:]]
             denominator = [1 / dist**2 for name, dist in station_dists[-3:]]
 
@@ -96,11 +96,13 @@ def get_readings(fpath=os.path.join(DIR, 'atlanta_hourly_14.csv')):
 
             grid.append(avg_reading)
 
-        time = '{} {}'.format(hour['Date (LST)'], hour['Time (LST)'])
-        readings.append({'time': time, 'grid': grid})
+        day = time.strptime(hour['Date (LST)'], '%m/%d/%y')
+
+        day = '{} {}'.format(time.strftime('%A, %b %d', day), hour['Time (LST)'])
+        readings.append({'time': day, 'grid': grid})
 
     # Write the readings to a JSON file
-    with open('aq_readings.json', 'wb') as f:
+    with open(outfile, 'wb') as f:
         f.write(json.dumps(readings, indent=4))
 
 if __name__ == '__main__':

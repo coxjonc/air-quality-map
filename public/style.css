@@ -1,5 +1,6 @@
 body {
   box-sizing: border-box;
+  font-family: arial;
 }
 
 #map {
@@ -22,10 +23,11 @@ body {
 }
 
 .col {
-  height: 33%;
-  width: 32%;
-  margin: 2px;
-  transition: background-color 0.2s ease;
+  height: 32.8%;
+  width: 33%;
+  margin: 1px;
+  transition: all .5s ease;
+  justify-content: space-between;
 }
 
 .aq-reading {
@@ -36,8 +38,53 @@ body {
 }
 
 #time {
+  display: inline-block;
   font-size: 3em;
   font-family: Arial;
+  margin-bottom: 10px;
+}
+
+.ex {
+  width: 30px;
+  padding: 5px;
+}
+
+#high-ex {
+  background-color: #F5A9A9;
+}
+
+#mid-ex {
+  background-color: #F5DA81;
+}
+
+#low-ex {
+  background-color: #9FF781;
+}
+
+#legend {
+  width: 450px;
+}
+
+#main {
+  top: 50px;
+  position: relative;
+  width: 900px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.desc {
+  margin-bottom: 10px;
+}
+
+.controller {
+  font-size: 2em;
+  margin: 5px;
+}
+
+#controller-holder {
   position: absolute;
   top: 0;
+  left: 0;
+  width: 250px;
 }

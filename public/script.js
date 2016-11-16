@@ -1,5 +1,42 @@
 // DOM refs
-$grid = $('#overlay-grid');
+var $grid = $('#overlay-grid'),
+    $play = $('#fa-play'),
+    $pause = $('#fa-pause'),
+    $forward = $('#fa-forward'),
+    $back = $('#fa-back');
+
+// State
+var paused = false;
+    data = []; // Will hold all the grid data
+    step = 0;
+
+// Add event handlers for stepping forward and back
+$pause.on('click', function() {
+  $(this).hide();
+  $play.show();
+  $forward.show();
+  $back.show();
+  paused = true;
+})
+
+$play.on('click', function() {
+  $(this).hide();
+  $forward.hide();
+  $back.hide();
+  $pause.show();
+  paused = false;
+  cycle(step);
+})
+
+$forward.on('click', function() {
+  step += 1;
+  cycle();
+})
+
+$back.on('click', function() {
+  step -= 1;
+  cycle();
+})
 
 // Get the readings from a JSON file
 function getReadings() {
@@ -28,10 +65,10 @@ function addGrids(readings) {
       if (cell < 30) {
         pollution = 'low';
       }
-      else if (cell < 75) {
+      else if (cell < 60) {
         pollution = 'mid';
       }
-      else if (cell < 150) {
+      else {
         pollution = 'high';
       }
 
@@ -51,16 +88,17 @@ function addGrids(readings) {
     colors = {'low': 'green', 'mid': 'orange', 'high': 'red'};
     p = this.dataset.pollution
 
+    data = readings;
     $(this).css('background-color', colors[p]);
   });
 
-  cycle(readings, readings.length, 0);
+  cycle();
 }
 
-function cycle(readings, num_hours, h) {
+function cycle() {
   $('.aq-reading').each(function() {
     try {
-    if (this.dataset.hour === readings[h]['time']) {
+    if (this.dataset.hour === data[step]['time']) {
       $(this).css('display', 'flex');
     }
     else $(this).css('display', 'none');
@@ -70,13 +108,17 @@ function cycle(readings, num_hours, h) {
     }
   })
 
+  // Update the time
+  $('#time').html(data[step]['time'])
+
   // Loop the animation every half-second
-  if (h < num_hours - 1) {
-    $('#time').html(readings[h]['time'])
-    setTimeout(cycle.bind(this, readings, num_hours, h+1), 400);
+  if (step < data.length - 1 && !paused) {
+    step += 1;
+    setTimeout(cycle, 400);
   }
-  else {
-    $('#time').html('Finished')
+  else if (!paused){
+    step = 0;
+    setTimeout(cycle, 400);
   }
 }
 

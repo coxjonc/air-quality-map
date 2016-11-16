@@ -81,6 +81,11 @@ body {
 
 #map-holder, #legend-holder {
   float: left;
+  max-width: 600px;
+}
+
+.sources {
+  font-size: .8em;
 }
 
 .controller-holder {
@@ -89,6 +94,6 @@ body {
 
 @media (min-width: 600px) {
   .controller-holder {
-    font-size: 1.3em;
+    font-size: 1.5em;
   }
 }

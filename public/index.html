@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.1/es6-shim.min.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <link rel="stylesheet" type="text/css" href="font-awesome.min.css"></script>
@@ -8,11 +9,13 @@
 <body>
   <div id="main">
     <h2>
-      Concentrations of PM<sub>2.5</sub> in metro Atlanta
-      <i class="controller fa fa-backward" id="fa-back" style="display: none;"></i>
-      <i class="controller fa fa-pause" id="fa-pause"></i>
-      <i class="controller fa fa-play" id="fa-play" style="display: none;"></i>
-      <i class="controller fa fa-forward" id="fa-forward" style="display: none;"></i>
+      Concentrations of PM<sub>2.5</sub> in Atlanta
+      <div class="controller-holder">
+        <i class="controller fa fa-backward" id="fa-back" style="display: none;"></i>
+        <i class="controller fa fa-pause" id="fa-pause"></i>
+        <i class="controller fa fa-play" id="fa-play" style="display: none;"></i>
+        <i class="controller fa fa-forward" id="fa-forward" style="display: none;"></i>
+      </div>
     </h2>
     <div class="container">
       <div id="map-holder">

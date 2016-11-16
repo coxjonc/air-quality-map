@@ -24,7 +24,7 @@ body {
 
 .col {
   height: 32.8%;
-  width: 33%;
+  width: 32.5%;
   margin: 1px;
   transition: all .5s ease;
   justify-content: space-between;
@@ -76,7 +76,7 @@ body {
 }
 
 .controller {
-  font-size: 1em;
+  font-size: .8em;
   margin: 5px;
 }
 
@@ -84,3 +84,6 @@ body {
   float: left;
 }
 
+.controller-holder {
+  display: inline-block;
+}

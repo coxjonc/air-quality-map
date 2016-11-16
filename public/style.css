@@ -5,8 +5,8 @@ body {
 
 #map {
   position: relative;
-  width: 600px;
-  height: 600px;
+  max-width: 600px;
+  max-height: 600px;
 }
 
 #background > img {
@@ -39,7 +39,7 @@ body {
 
 #time {
   display: inline-block;
-  font-size: 3em;
+  font-size: 1.3em;
   font-family: Arial;
   margin-bottom: 10px;
 }
@@ -61,16 +61,14 @@ body {
   background-color: #9FF781;
 }
 
-#legend {
-  width: 450px;
+#legend-holder {
+  max-width: 150px;
+  margin-left: 10px;
 }
 
 #main {
   top: 50px;
-  position: relative;
-  width: 900px;
-  left: 50%;
-  transform: translateX(-50%);
+  max-width: 900px;
 }
 
 .desc {
@@ -78,13 +76,11 @@ body {
 }
 
 .controller {
-  font-size: 2em;
+  font-size: 1em;
   margin: 5px;
 }
 
-#controller-holder {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 250px;
+#map-holder, #legend-holder {
+  float: left;
 }
+

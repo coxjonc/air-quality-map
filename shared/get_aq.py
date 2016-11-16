@@ -52,7 +52,7 @@ def haversine(lat1, lng1, lat2, lng2):
 # End helper functions
 #----------------------
 
-def get_readings(fpath=os.path.join(DIR, 'atlanta_hourly.csv')):
+def get_readings(fpath=os.path.join(DIR, 'atlanta_hourly_14.csv')):
     """
     Create a json file with intensity of air pollution for each grid in
     the city of Atlanta
@@ -96,10 +96,8 @@ def get_readings(fpath=os.path.join(DIR, 'atlanta_hourly.csv')):
 
             grid.append(avg_reading)
 
-        gridf = [grid[:3], grid[3:6], grid[6:9]] # Convert grid to a list of rows
-
         time = '{} {}'.format(hour['Date (LST)'], hour['Time (LST)'])
-        readings.append({'time': time, 'grid': gridf})
+        readings.append({'time': time, 'grid': grid})
 
     # Write the readings to a JSON file
     with open('aq_readings.json', 'wb') as f:

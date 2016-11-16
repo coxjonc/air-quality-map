@@ -23,9 +23,8 @@ body {
 }
 
 .col {
-  height: 32.8%;
-  width: 32.5%;
-  margin: 1px;
+  height: 33.3%;
+  width: 33.3%;
   transition: all .5s ease;
   justify-content: space-between;
 }
@@ -58,7 +57,7 @@ body {
 }
 
 #low-ex {
-  background-color: #9FF781;
+  background-color: #96e0a1;
 }
 
 #legend-holder {
@@ -86,4 +85,10 @@ body {
 
 .controller-holder {
   display: inline-block;
+}
+
+@media (min-width: 600px) {
+  .controller-holder {
+    font-size: 1.3em;
+  }
 }

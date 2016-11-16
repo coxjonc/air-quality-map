@@ -1,0 +1,9 @@
+Find out which neighborhoods the wildfire smoke has hit worst
+-----
+<p>This interactive uses data collected from meteorological stations around Atlanta to show which neighborhoods have been worst affected by the smoke spreading from the wildfires in north Georgia.</p>
+
+<p>Over the last 7 days the Air Quality Index - a scale from 0 to 500 the Environmental Protection Agency (EPA) uses to measure how unhealthy the air is - has shown readings in some areas of Atlanta well above 150, meaning the air is considered "unhealthy" by the EPA.</p>
+
+<p>The haze levels spiked on Monday, according to readings from six observation stations in and around Atlanta obtained by the Atlanta Journal Constitution. The interactive above displays an hourly map of how the haze has been distributed around different parts of the city. It shows the concentration of PM<sub>2.5</sub>, tiny particles known to cause health problems, in micrograms per m<super>3</super>.</p>
+
+<iframe src="http://ajcnewsapps.s3-website-us-east-1.amazonaws.com/2016/air-quality/" style="height: 900px; width: 100%; border-width: 0;">The interactive couldn't display. Please use a modern browser.</iframe>

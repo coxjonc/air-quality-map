@@ -3,8 +3,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.1/es6-shim.min.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="font-awesome.min.css"></script>
-  <link rel="stylesheet" type="text/css" href="style.css"></script>
+  <!-- using absolute path here because S3 is dumb -->
+  <link rel="stylesheet" type="text/css" href="./vendor/font-awesome.min.css"></script>
+  <link rel="stylesheet" type="text/css" href="./style.css"></script>
 </head>
 <body>
   <div id="main">
@@ -27,7 +28,7 @@
           <div id="overlay-grid"></div>
         </div>
         <div class="sources">
-          Data collected from the EPA <a href="https://www.airnow.gov/">[https://www.airnow.gov/]</a>. Average P<sub>2.5</sub> readings were calculated from preliminary measurements taken at monitoring stations in and around Atlanta. Data analysis by Jonathan Cox/AJC.
+          Visualization based on data collected from the EPA <a href="https://www.airnow.gov/">[https://www.airnow.gov/]</a>. Average P<sub>2.5</sub> readings were calculated from preliminary measurements taken at monitoring stations in and around Atlanta. Data analysis by Jonathan Cox/AJC.
         </div>
       </div>
       <div id="legend-holder">
@@ -35,15 +36,15 @@
           <table>
             <tr class="pm-classification">
               <td class="ex" id="low-ex"></td>
-              <td>0-29 &mu;/m<sup>3</sup></td>
+              <td>0-29 &mu;g/m<sup>3</sup></td>
             </tr>
             <tr class="pm-classification">
               <td class="ex" id="mid-ex"></td>
-              <td>30-70 &mu;/m<sup>3</sup></td>
+              <td>30-70 &mu;g/m<sup>3</sup></td>
             </tr>
             <tr class="pm-classification">
               <td class="ex" id="high-ex"></td>
-              <td>&#62;60 &mu;/m<sup>3</sup></td>
+              <td>&#62;60 &mu;g/m<sup>3</sup></td>
             </tr>
           </table>
         </div>

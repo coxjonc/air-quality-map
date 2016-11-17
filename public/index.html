@@ -10,25 +10,35 @@
 <body>
   <div id="main">
     <h2>
-      Concentrations of PM<sub>2.5</sub> in Atlanta
+      Concentration of haze in Atlanta
     </h2>
-    <div id="time"></div>
-    <div class="controller-holder">
-      <i class="controller fa fa-backward" id="fa-back" style="display: none;"></i>
-      <i class="controller fa fa-pause" id="fa-pause"></i>
-      <i class="controller fa fa-play" id="fa-play" style="display: none;"></i>
-      <i class="controller fa fa-forward" id="fa-forward" style="display: none;"></i>
+    <div class="time-and-controls">
+      <div id="time"></div>
+      <div class="controller-holder">
+        <div class="controller" id="fa-back">
+          <i class="fa fa-backward"></i>
+        </div>
+        <div class="controller" id="fa-pause" style="display: none;">
+          <i class="fa fa-pause"></i>
+        </div>
+        <div class="controller" id="fa-play">
+          <i class="fa fa-play"></i>
+        </div>
+        <div class="controller" id="fa-forward">
+          <i class="fa fa-forward"></i>
+        </div>
+      </div>
     </div>
     <div class="container">
       <div id="map-holder">
         <div id="map">
           <div id="background">
             <img src="./atlanta_basemap.png"/>
+            <div id="overlay-grid"></div>
           </div>
-          <div id="overlay-grid"></div>
         </div>
         <div class="sources">
-          Visualization based on data collected from the EPA <a href="https://www.airnow.gov/">[https://www.airnow.gov/]</a>. Average P<sub>2.5</sub> readings were calculated from preliminary measurements taken at monitoring stations in and around Atlanta. Data analysis by Jonathan Cox/AJC.
+          Visualization based on data collected from the EPA <a href="https://www.airnow.gov/">[https://www.airnow.gov/]</a>. Average P<sub>2.5</sub> readings were calculated from preliminary measurements taken at monitoring stations in and around Atlanta. Spatial interpolation used to calculate points between stations. Data analysis by Jonathan Cox/AJC.
         </div>
       </div>
       <div id="legend-holder">
@@ -36,7 +46,7 @@
           <table>
             <tr class="pm-classification">
               <td class="ex" id="low-ex"></td>
-              <td>0-29 &mu;g/m<sup>3</sup></td>
+              <td>0-30 &mu;g/m<sup>3</sup></td>
             </tr>
             <tr class="pm-classification">
               <td class="ex" id="mid-ex"></td>
@@ -44,7 +54,7 @@
             </tr>
             <tr class="pm-classification">
               <td class="ex" id="high-ex"></td>
-              <td>&#62;60 &mu;g/m<sup>3</sup></td>
+              <td>&#62;70 &mu;g/m<sup>3</sup></td>
             </tr>
           </table>
         </div>

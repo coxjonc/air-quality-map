@@ -2,11 +2,16 @@
 
 # Standard library imports
 from os.path import dirname, abspath, join
+import math
 import json
 import time
 import pdb
 import csv
-from math import radians, cos, sin, asin, sqrt
+
+# Third party imports
+from haversine import haversine # Used to calculate  the dist between two lat long points
+import numpy as np
+from scipy import interpolate
 
 DIR = dirname(abspath(__file__))
 OUTFILE = join(dirname(DIR), 'public', 'aq_readings.json')
@@ -20,37 +25,25 @@ station_coords = {
     'McDonough': [33.4347, -84.1617]
 }
 
-grid_centers = [
-    [34.0708, -84.6071],
-    [34.0708, -84.3379],
-    [34.0708, -84.0797],
-    [33.8514, -84.6071],
-    [33.8514, -84.3379],
-    [33.8514, -84.0797],
-    [33.60203, -84.6071],
-    [33.60203, -84.3379],
-    [33.60203, -84.0797]
-]
+# The number of minutes of latitude and longitude that the grid will span
+dist = 0.58
 
-#----------------------
-# Define helper functions
-#----------------------
-def haversine(lat1, lng1, lat2, lng2):
-    """
-    Calculate the great circle distance between two points
-    """
-    # convert decimal degrees to radians
-    lng1, lat1, lng2, lat2 = map(radians, [lng1, lat1, lng2, lat2])
-    # haversine formula
-    dlng = lng2 - lng1
-    dlat = lat2 - lat1
-    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlng/2)**2
-    c = 2 * asin(sqrt(a))
-    km = 6367 * c
-    return km
-#----------------------
-# End helper functions
-#----------------------
+lat_start = 33.5447
+lng_start = -84.6394
+num_squares = 30
+side_length = dist / num_squares # Length of a grid side in degrees latitude. Very small number
+
+# Create a 30x30 grid. A better implementation would be to use numpy
+grid_centers = []
+for i in range(num_squares):
+    for j in range(num_squares):
+        dlat = side_length * i + (.5 * side_length)
+        dlng = side_length * j + (.5 * side_length)
+
+        lat = lat_start + dlat
+        lng = lng_start + dlng
+
+        grid_centers.append([math.ceil(lat*1000)/1000, math.ceil(lng*1000)/1000])
 
 def get_readings(outfile=OUTFILE, fpath=join(DIR, 'atlanta_hourly_14.csv')):
     """
@@ -62,7 +55,7 @@ def get_readings(outfile=OUTFILE, fpath=join(DIR, 'atlanta_hourly_14.csv')):
     readings = []
     for hour in reader: # Each row corresponds to an hourly reading
         grid = []
-        for cell in grid_centers:
+        for i, cell in enumerate(grid_centers):
             station_dists = []
 
             # Calculate distance to each station
@@ -71,35 +64,41 @@ def get_readings(outfile=OUTFILE, fpath=join(DIR, 'atlanta_hourly_14.csv')):
                 if hour[name] == '':
                     continue
 
-                args = {
-                    'lat1': cell[0],
-                    'lng1': cell[1],
-                    'lat2': station_coords[name][0],
-                    'lng2': station_coords[name][1]
-                }
-                station_dists.append([name, haversine(**args)])
+                grid_loc = (cell[0], cell[1])
+                station_loc = (station_coords[name][0], station_coords[name][1])
+
+                station_dists.append([name, haversine(grid_loc, station_loc, miles=True)])
 
             # Once all the station dists have been calculated, sort in place
             station_dists.sort(key=lambda x: x[1])
-            
-            # Find the three closest stations and use inverse distance weighting to 
-            # calculate an average reading for PM2.5 (pollution). We need to use
-            # spatial interpolation because there isn't a monitoring station in 
-            # every quadrant.
-            numerator = [float(hour[name]) / dist**2 for name, dist in station_dists[-3:]]
-            denominator = [1 / dist**2 for name, dist in station_dists[-3:]]
 
-            try:
-                avg_reading = sum(numerator) / sum(denominator)
-            except:
-                pdb.set_trace()
+            # A naive model for calculating air quality at a given point. Will switch
+            # for inverse distance weighting or some other form of spatial interpolation
+            # when I get the chance.
+            nearest_neighbor = station_dists[0]
+            next_neighbor = station_dists[1]
+            if nearest_neighbor[1] < 10:
+                if next_neighbor[1] < 30:
+                    sum_ = float(hour[next_neighbor[0]]) + float(hour[nearest_neighbor[0]])
+                    avg_reading = sum_ / 2
+                else:
+                    float(hour[nearest_neighbor[0]])
+            else:
+                sum_ = float(hour[next_neighbor[0]]) + float(hour[nearest_neighbor[0]])
+                avg_reading = sum_ / 2
 
             grid.append(avg_reading)
 
-        day = time.strptime(hour['Date (LST)'], '%m/%d/%y')
+        day = time.strptime(hour['Date (LST)'] + ' ' + hour['Time (LST)'], '%m/%d/%y %H:00')
 
-        day = '{} {}'.format(time.strftime('%A, %b %d', day), hour['Time (LST)'])
-        readings.append({'time': day, 'grid': grid})
+        # Break grid into a list of rows
+        new_grid = []
+        for i in range(30):
+            start = (i*30)
+            new_grid.append(grid[start:start+30])
+
+        day = time.strftime('%A, %b %d %-I:00%p', day)
+        readings.append({'time': day, 'grid': new_grid})
 
     # Write the readings to a JSON file
     with open(outfile, 'wb') as f:

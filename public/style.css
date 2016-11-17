@@ -5,39 +5,49 @@ body {
 
 #map {
   position: relative;
-  max-width: 600px;
-  max-height: 600px;
 }
 
-#background > img {
-  width: 100%;
+#background {
+  display: inline-block;
+}
+
+#background > img{
+  max-width: 600px;
 }
 
 #overlay-grid {
   position: absolute;
-  left: 0;
-  top: 0;
   width: 100%;
   height: 100%;
+  left: 0;
+  top: 0;
+  max-width: 600px;
   opacity: .2;
 }
 
-.col {
-  height: 33.3%;
-  width: 33.3%;
-  transition: all .5s ease;
-  justify-content: space-between;
+.row {
+  height: 3.33%;
+  width: 100%;
+}
+
+.grid-cell {
+  width: 3.35%;
+  height: 100%;
+  display: inline-block;
+  margin: 0;
+  margin-right: -5px;
 }
 
 .aq-reading {
   display: none;
-  flex-wrap: wrap;
   width: 100%;
   height: 100%;
+  border: 1px solid black;
 }
 
 #time {
   display: inline-block;
+  width: 250px;
   font-size: 1.3em;
   font-family: Arial;
   margin-bottom: 10px;
@@ -76,20 +86,27 @@ body {
 
 .controller {
   font-size: .8em;
+  display: inline-block;
   margin: 5px;
+  width:
 }
 
 #map-holder, #legend-holder {
   float: left;
-  max-width: 600px;
 }
 
 .sources {
+  max-width: 600px;
   font-size: .8em;
+}
+
+#legend-holder {
+  width: 150px;
 }
 
 .controller-holder {
   display: inline-block;
+  width: 350px;
 }
 
 @media (min-width: 600px) {

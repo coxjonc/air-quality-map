@@ -11,15 +11,17 @@ var paused = false;
     step = 0;
 
 // Add event handlers for stepping forward and back
-$pause.on('click', function() {
-  $(this).hide();
+$pause.on('mousedown', function(e) {
+  e.preventDefault();
+  $pause.hide();
   $play.show();
   $forward.show();
   $back.show();
   paused = true;
 })
 
-$play.on('click', function() {
+$play.on('mousedown', function(e) {
+  e.preventDefault();
   $(this).hide();
   $forward.hide();
   $back.hide();
@@ -28,12 +30,14 @@ $play.on('click', function() {
   cycle(step);
 })
 
-$forward.on('click', function() {
+$forward.on('mousedown', function(e) {
+  e.preventDefault();
   step += 1;
   cycle();
 })
 
-$back.on('click', function() {
+$back.on('mousedown', function(e) {
+  e.preventDefault();
   step -= 1;
   cycle();
 })
@@ -53,32 +57,36 @@ function addGrids(readings) {
   // readingDivs will hold the grids for each hourly report
   // Loop through the reports for each hour since Nov 11
   for (var i=0; i<readings.length; i++) {
-    // Each reading contains a time and a list of 3 lists of intensities for grid cells
-    var readingDivs = [];
+    rows = []
+    for (var j=0; j<30; j++) {
+      // Each reading contains a time and a list of 3 lists of intensities for grid cells
+      var readingDivs = [];
 
-    // Yes I know it would be better to use flexbox
-    var grid = readings[i]['grid']
+      // Yes I know it would be better to use flexbox
+      var grid = readings[i]['grid'];
 
-    var cells = grid.map(function(cell) {
-      var pollution;
+      var cells = grid[j].map(function(cell) {
+        var pollution;
 
-      if (cell < 30) {
-        pollution = 'low';
-      }
-      else if (cell < 60) {
-        pollution = 'mid';
-      }
-      else {
-        pollution = 'high';
-      }
+        if (cell < 30) {
+          pollution = 'low';
+        }
+        else if (cell < 70) {
+          pollution = 'mid';
+        }
+        else {
+          pollution = 'high';
+        }
 
-      return (`
-        <div class="grid-cell col" data-pollution=${pollution}></div>
-      `)
-    });
+        return (`
+          <div class="grid-cell" data-pollution=${pollution}></div>
+        `)
+      });
+      rows.push(`<div class="row">${cells.join('\n')}</div>`);
+    };
 
     final_ = `<div class="aq-reading" data-hour="${readings[i]['time']}">
-        ${cells.join('\n')}
+        ${rows.join('\n')}
       </div>`
 
     $grid.append(final_);
@@ -92,14 +100,28 @@ function addGrids(readings) {
     $(this).css('background-color', colors[p]);
   });
 
-  cycle();
+  $('.aq-reading').each(function() {
+    if (this.dataset.hour === data[step]['time']) {
+      $(this).css('display', 'block');
+    }
+    else $(this).css('display', 'none');
+  })
+  step += 1;
+  $('#time').html(data[0]['time'])
+
+  $pause.hide();
+  $play.show();
+  $forward.show();
+  $back.show();
+
+  paused = true;
 }
 
 function cycle() {
   $('.aq-reading').each(function() {
     try {
     if (this.dataset.hour === data[step]['time']) {
-      $(this).css('display', 'flex');
+      $(this).css('display', 'block');
     }
     else $(this).css('display', 'none');
   }

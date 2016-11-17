@@ -32,15 +32,21 @@ $play.on('mousedown', function(e) {
 
 $forward.on('mousedown', function(e) {
   e.preventDefault();
-  step += 1;
+  if (step != data.length - 1) step += 1;
+  else step = 0;
   cycle();
 })
 
 $back.on('mousedown', function(e) {
   e.preventDefault();
-  step -= 1;
+  if (step != 0) step -= 1;
+  else step = 0;
   cycle();
 })
+
+$('#time-and-controls').on('mousedown', function(e) {
+  e.preventDefault();
+});
 
 // Get the readings from a JSON file
 function getReadings() {
@@ -78,16 +84,12 @@ function addGrids(readings) {
           pollution = 'high';
         }
 
-        return (`
-          <div class="grid-cell" data-pollution=${pollution}></div>
-        `)
+        return ('<div class="grid-cell" data-pollution=' + pollution + '></div>')
       });
-      rows.push(`<div class="row">${cells.join('\n')}</div>`);
+      rows.push('<div class="row">' + cells.join('\n') + '</div>');
     };
 
-    final_ = `<div class="aq-reading" data-hour="${readings[i]['time']}">
-        ${rows.join('\n')}
-      </div>`
+    final_ = '<div class="aq-reading" data-hour="' + readings[i]['time'] + '">' + rows.join('\n') + '</div>'
 
     $grid.append(final_);
   }
@@ -144,4 +146,6 @@ function cycle() {
   }
 }
 
-getReadings();
+window.onload = function() {
+  getReadings();
+};

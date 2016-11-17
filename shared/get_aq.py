@@ -43,7 +43,7 @@ for i in range(num_squares):
         lat = lat_start + dlat
         lng = lng_start + dlng
 
-        grid_centers.append([math.ceil(lat*1000)/1000, math.ceil(lng*1000)/1000])
+        grid_centers.append([math.ceil(lat*10000)/10000, math.ceil(lng*10000)/10000])
 
 def get_readings(outfile=OUTFILE, fpath=join(DIR, 'atlanta_hourly_14.csv')):
     """

@@ -9,10 +9,11 @@ body {
 
 #background {
   display: inline-block;
+  max-width: 600px;
 }
 
 #background > img{
-  max-width: 600px;
+  width: 100%;
 }
 
 #overlay-grid {
@@ -31,7 +32,7 @@ body {
 }
 
 .grid-cell {
-  width: 3.35%;
+  width: 3.42%;
   height: 100%;
   display: inline-block;
   margin: 0;
@@ -85,10 +86,10 @@ body {
 }
 
 .controller {
-  font-size: .8em;
+  font-size: 1em;
   display: inline-block;
   margin: 5px;
-  width:
+  cursor: pointer;
 }
 
 #map-holder, #legend-holder {
@@ -97,7 +98,7 @@ body {
 
 .sources {
   max-width: 600px;
-  font-size: .8em;
+  font-size: .6em;
 }
 
 #legend-holder {
@@ -112,5 +113,11 @@ body {
 @media (min-width: 600px) {
   .controller-holder {
     font-size: 1.5em;
+  }
+  .sources {
+    font-size: .8em;
+  }
+  #legend-holder {
+    padding-top: 10px;
   }
 }

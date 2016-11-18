@@ -4,7 +4,9 @@
   "description": "A map of air quality in Atlanta",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve-dev": "http-server public/",
+    "build-grid": "python ./shared/get_aq.py"
   },
   "repository": {
     "type": "git",
